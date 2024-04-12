@@ -1,5 +1,5 @@
 ## "Pet shop" PROJECT
-#### BD:     https://miro.com/
+#### BD:     https://miro.com/app/board/uXjVKVUmC5I=/
 
 ### Technical requirement
 
@@ -17,4 +17,3 @@
 
 ### Deploy
 - [ ] Автоматический Checkout, Build, Deploy
-
