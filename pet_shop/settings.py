@@ -39,6 +39,7 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     "apps.products",
+    "apps.users",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -88,6 +89,8 @@ DATABASES = {
     }
 }
 
+
+AUTH_USER_MODEL = "users.User"
 
 # Password validation
 
