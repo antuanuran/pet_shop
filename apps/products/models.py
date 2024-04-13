@@ -17,8 +17,7 @@ class Category(models.Model):
 class Product(models.Model):
     name = models.CharField(max_length=100, unique=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="products")
-    # attributes
-    # items
+    # catalogs
 
     class Meta:
         verbose_name = "2. Продукт"
@@ -28,9 +27,21 @@ class Product(models.Model):
         return f"{self.name}"
 
 
+class Catalog(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="catalogs")
+
+    class Meta:
+        verbose_name = "3. Каталог"
+        verbose_name_plural = "3. Каталоги"
+
+    def __str__(self):
+        return self.name
+
+
 class Attribute(models.Model):
     name = models.CharField(max_length=100)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="attributes")
+    catalog = models.ForeignKey(Catalog, on_delete=models.CASCADE, related_name="attributes")
     # itemattributes
 
     class Meta:
@@ -38,11 +49,11 @@ class Attribute(models.Model):
         verbose_name_plural = "Атрибуты"
 
     def __str__(self):
-        return f"{self.name}: [{self.product.name}]"
+        return f"{self.name}: [{self.catalog.name}]"
 
 
 class Item(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="items")
+    catalog = models.ForeignKey(Catalog, on_delete=models.CASCADE, related_name="items")
     price = models.IntegerField(validators=[MinValueValidator(1)])
     count = models.PositiveIntegerField()
     upc = models.CharField(max_length=64, null=True, blank=True)
@@ -50,11 +61,11 @@ class Item(models.Model):
     # itemattributes
 
     class Meta:
-        verbose_name = "3. Товар"
-        verbose_name_plural = "3. Товары"
+        verbose_name = "4. Товар"
+        verbose_name_plural = "4. Товары"
 
     def __str__(self):
-        return f"{self.product}. Цена: {self.price} руб. / Кол-во: {self.count} шт."
+        return f"{self.catalog}. Цена: {self.price} руб. / Кол-во: {self.count} шт."
 
 
 class ItemAttribute(models.Model):
