@@ -1,2 +1,2 @@
-category,product,catalog
-Кошки,Еда,Whiskas
+category,product,catalog,attribute,price,count,upc,value
+Кошки,Еда,Whiskas,Тип(сух/мокр),85,5,458548965,мокрый

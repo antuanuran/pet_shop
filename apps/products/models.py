@@ -1,6 +1,8 @@
 from django.core.validators import MinValueValidator
 from django.db import models
 
+from apps.users.models import User
+
 
 class Category(models.Model):
     name = models.CharField(max_length=100, unique=True)
@@ -30,6 +32,7 @@ class Product(models.Model):
 class Catalog(models.Model):
     name = models.CharField(max_length=100, unique=True)
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="catalogs")
+    admin = models.ForeignKey(User, on_delete=models.CASCADE, related_name="catalogs")
 
     class Meta:
         verbose_name = "3. Каталог"
