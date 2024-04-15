@@ -63,6 +63,13 @@ class Item(models.Model):
     is_active = models.BooleanField(default=True)
     # itemattributes
 
+    @property
+    def attributes(self):
+        result = []
+        for i in self.itemattributes.all():
+            result.append(f"{i.attribute.name}: {i.value}")
+        return result
+
     class Meta:
         verbose_name = "4. Товар"
         verbose_name_plural = "4. Товары"
