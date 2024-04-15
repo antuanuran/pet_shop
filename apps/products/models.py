@@ -1,6 +1,7 @@
 from django.core.validators import MinValueValidator
 from django.db import models
 
+from apps.holder.models import ImageHolder, VideoHolder
 from apps.users.models import User
 
 
@@ -59,6 +60,8 @@ class Item(models.Model):
     catalog = models.ForeignKey(Catalog, on_delete=models.CASCADE, related_name="items")
     price = models.IntegerField(validators=[MinValueValidator(1)])
     count = models.PositiveIntegerField()
+    poster = models.ForeignKey(ImageHolder, on_delete=models.CASCADE, related_name="+", null=True, blank=True)
+    video = models.ForeignKey(VideoHolder, on_delete=models.CASCADE, related_name="+", null=True, blank=True)
     upc = models.CharField(max_length=64, null=True, blank=True)
     is_active = models.BooleanField(default=True)
     # itemattributes

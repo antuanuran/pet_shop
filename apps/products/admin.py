@@ -31,5 +31,19 @@ class ItemAttributeInlines(admin.TabularInline):
 
 @admin.register(Item)
 class ItemAdmin(admin.ModelAdmin):
-    list_display = ["catalog", "price", "count", "is_active", "id", "attributes"]
+    list_display = ["catalog", "price", "count", "photo", "video_link", "is_active", "id", "attributes"]
     inlines = [ItemAttributeInlines]
+
+    @admin.display(boolean=True)
+    def photo(self, obj):
+        if obj.poster:
+            return True
+        else:
+            return False
+
+    @admin.display(boolean=True, description="video")
+    def video_link(self, obj):
+        if obj.video:
+            return True
+        else:
+            return False
