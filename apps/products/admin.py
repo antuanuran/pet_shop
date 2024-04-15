@@ -31,5 +31,5 @@ class ItemAttributeInlines(admin.TabularInline):
 
 @admin.register(Item)
 class ItemAdmin(admin.ModelAdmin):
-    list_display = ["catalog", "price", "count", "id", "is_active"]
+    list_display = ["catalog", "price", "count", "is_active", "id", "attributes"]
     inlines = [ItemAttributeInlines]

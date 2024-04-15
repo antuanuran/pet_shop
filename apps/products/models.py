@@ -63,9 +63,19 @@ class Item(models.Model):
     is_active = models.BooleanField(default=True)
     # itemattributes
 
+    @property
+    def attributes(self):
+        result = []
+        for i in self.itemattributes.all():
+            result.append(f"{i.attribute.name}: {i.value}")
+        return result
+
     class Meta:
         verbose_name = "4. Товар"
         verbose_name_plural = "4. Товары"
+        constraints = [
+            models.UniqueConstraint(fields=["catalog", "upc"], name="unique_item_name_per_upc"),
+        ]
 
     def __str__(self):
         return f"{self.catalog}. Цена: {self.price} руб. / Кол-во: {self.count} шт."
