@@ -62,6 +62,7 @@ class Item(models.Model):
     count = models.PositiveIntegerField()
     poster = models.ForeignKey(ImageHolder, on_delete=models.CASCADE, related_name="+", null=True, blank=True)
     video = models.ForeignKey(VideoHolder, on_delete=models.CASCADE, related_name="+", null=True, blank=True)
+    description = models.TextField(null=True, blank=True)
     upc = models.CharField(max_length=64, null=True, blank=True)
     is_active = models.BooleanField(default=True)
     # itemattributes

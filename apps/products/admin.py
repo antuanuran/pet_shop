@@ -22,6 +22,7 @@ class AttributeInlines(admin.TabularInline):
 class CatalogAdmin(admin.ModelAdmin):
     list_display = ["name", "product", "id"]
     inlines = [AttributeInlines]
+    search_fields = ["name"]
 
 
 class ItemAttributeInlines(admin.TabularInline):
@@ -33,6 +34,7 @@ class ItemAttributeInlines(admin.TabularInline):
 class ItemAdmin(admin.ModelAdmin):
     list_display = ["catalog", "price", "count", "photo", "video_link", "is_active", "id", "attributes"]
     inlines = [ItemAttributeInlines]
+    autocomplete_fields = ["catalog"]
 
     @admin.display(boolean=True)
     def photo(self, obj):
