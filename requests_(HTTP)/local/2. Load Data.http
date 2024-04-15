@@ -1,0 +1,6 @@
+POST http://localhost:8000/api/v1/products-import-file/
+Authorization: Bearer {{token}}
+
+# В Postman прикрепляем файл в поле - "Body" -> "Form-data" с ключем "file"
+# Добавляем Токен - Bearer Token
+# И отправляем Post-запрос
