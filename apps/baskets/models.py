@@ -45,13 +45,6 @@ class BasketRow(models.Model):
     def price_unit(self):
         return self.item.price
 
-    @property
-    def is_active_item(self):
-        if self.item.is_active:
-            return True
-        else:
-            return False
-
     # ******************************
     def save(self, *args, **kwargs):
         self.clean()
