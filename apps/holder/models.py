@@ -24,6 +24,9 @@ class ImageHolder(AbstractMediaHolder):
         verbose_name = "изображение"
         verbose_name_plural = "изображения"
 
+    def __str__(self) -> str:
+        return self.uuid
+
 
 class VideoHolder(AbstractMediaHolder):
     file = models.FileField(upload_to="files/videos/", max_length=500)
@@ -33,4 +36,4 @@ class VideoHolder(AbstractMediaHolder):
         verbose_name_plural = "видео-файлы"
 
     def __str__(self) -> str:
-        return self.name
+        return self.uuid

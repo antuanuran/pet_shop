@@ -39,7 +39,7 @@ def convert_to_csv(data_stream):
 @parser_classes([MultiPartParser])
 def import_file(request):
     if not request.FILES or "file" not in request.FILES:
-        raise ValidationError("no file", code="no-file")
+        raise ValidationError(f"no file for user: {request.user}", code="no-file")
 
     data_stream = request.FILES["file"]
     data_stream = data_stream.read().decode()
