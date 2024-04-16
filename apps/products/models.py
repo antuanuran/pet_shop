@@ -1,5 +1,6 @@
 from django.core.validators import MinValueValidator
 from django.db import models
+from taggit.managers import TaggableManager
 
 from apps.holder.models import ImageHolder, VideoHolder
 from apps.users.models import User
@@ -65,6 +66,8 @@ class Item(models.Model):
     description = models.TextField(null=True, blank=True)
     upc = models.CharField(max_length=64, null=True, blank=True)
     is_active = models.BooleanField(default=True)
+
+    tags = TaggableManager(blank=True)
     # itemattributes
 
     @property

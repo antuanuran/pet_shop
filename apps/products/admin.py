@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.db.models import Count
 
 from .models import Attribute, Catalog, Category, Item, ItemAttribute, Product
 
@@ -32,9 +33,18 @@ class ItemAttributeInlines(admin.TabularInline):
 
 @admin.register(Item)
 class ItemAdmin(admin.ModelAdmin):
-    list_display = ["catalog", "price", "count", "photo", "video_link", "is_active", "id", "attributes"]
+    list_display = ["catalog", "price", "count", "photo", "video_link", "is_active", "id", "attributes", "tag_list"]
     inlines = [ItemAttributeInlines]
     autocomplete_fields = ["catalog"]
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        qs = qs.annotate(tag_list=Count("tags"))
+        return qs
+
+    @admin.display(description="теги", ordering="tag_list")
+    def tag_list(self, obj):
+        return obj.tag_list
 
     @admin.display(boolean=True)
     def photo(self, obj):

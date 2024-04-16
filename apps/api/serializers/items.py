@@ -1,4 +1,5 @@
 from dynamic_rest.fields import DynamicRelationField
+from taggit.serializers import TaggitSerializer, TagListSerializerField
 
 from apps.api.serializers.abstract_dynamic import BaseModelSerializer
 from apps.products.models import Catalog, Item, Product
@@ -18,8 +19,9 @@ class CatalogItemSerializer(BaseModelSerializer):
         fields = ["id", "name", "product"]
 
 
-class ItemSerializer(BaseModelSerializer):
+class ItemSerializer(TaggitSerializer, BaseModelSerializer):
     catalog = DynamicRelationField(CatalogItemSerializer, read_only=True)
+    tags = TagListSerializerField()
 
     class Meta:
         model = Item
@@ -28,6 +30,7 @@ class ItemSerializer(BaseModelSerializer):
             "price",
             "price",
             "count",
+            "tags",
             "upc",
             "poster",
             "video",
