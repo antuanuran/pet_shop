@@ -35,6 +35,7 @@ THIRD_PARTY_APPS = [
     "drf_yasg",
     "ordered_model",
     "corsheaders",
+    "dynamic_rest",
 ]
 
 LOCAL_APPS = [
@@ -145,4 +146,19 @@ REST_FRAMEWORK = {
 SIMPLE_JWT = {
     "AUTH_HEADER_TYPES": ("Bearer",),
     "ACCESS_TOKEN_LIFETIME": dt.timedelta(days=365),
+}
+
+DYNAMIC_REST = {
+    "DEBUG": False,
+    "ENABLE_BROWSABLE_API": True,
+    "ENABLE_LINKS": False,
+    "ENABLE_SERIALIZER_CACHE": True,
+    "ENABLE_SERIALIZER_OPTIMIZATIONS": True,
+    "DEFER_MANY_RELATIONS": False,
+    "MAX_PAGE_SIZE": None,
+    "PAGE_QUERY_PARAM": "page",
+    "PAGE_SIZE": None,
+    "PAGE_SIZE_QUERY_PARAM": "per_page",
+    "ADDITIONAL_PRIMARY_RESOURCE_PREFIX": "+",
+    "ENABLE_HOST_RELATIVE_LINKS": True,
 }
