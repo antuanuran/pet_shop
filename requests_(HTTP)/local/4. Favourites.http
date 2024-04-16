@@ -1,0 +1,7 @@
+POST http://localhost:8000/api/v1/items/1/change-favourite/
+Authorization: Bearer {{token}}
+
+###
+
+GET http://localhost:8000/api/v1/items/1/
+Authorization: Bearer {{token}}

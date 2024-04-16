@@ -1,4 +1,4 @@
-from dynamic_rest.fields import DynamicRelationField
+from dynamic_rest.fields import DynamicMethodField, DynamicRelationField
 from taggit.serializers import TaggitSerializer, TagListSerializerField
 
 from apps.api.serializers.abstract_dynamic import BaseModelSerializer
@@ -22,6 +22,7 @@ class CatalogItemSerializer(BaseModelSerializer):
 class ItemSerializer(TaggitSerializer, BaseModelSerializer):
     catalog = DynamicRelationField(CatalogItemSerializer, read_only=True)
     tags = TagListSerializerField()
+    is_favourite = DynamicMethodField()
 
     class Meta:
         model = Item
@@ -35,4 +36,9 @@ class ItemSerializer(TaggitSerializer, BaseModelSerializer):
             "poster",
             "video",
             "is_active",
+            "is_favourite",
         ]
+
+    def get_is_favourite(self, obj: Item) -> bool:
+        current_user = self.context["request"].user.id
+        return obj.favourites.filter(id=current_user).exists()

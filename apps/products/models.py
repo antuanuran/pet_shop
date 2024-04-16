@@ -66,6 +66,7 @@ class Item(models.Model):
     description = models.TextField(null=True, blank=True)
     upc = models.CharField(max_length=64, null=True, blank=True)
     is_active = models.BooleanField(default=True)
+    favourites = models.ManyToManyField(User, related_name="favourites", blank=True)
 
     tags = TaggableManager(blank=True)
     # itemattributes

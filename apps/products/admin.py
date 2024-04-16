@@ -36,6 +36,7 @@ class ItemAdmin(admin.ModelAdmin):
     list_display = ["catalog", "price", "count", "photo", "video_link", "is_active", "id", "attributes", "tag_list"]
     inlines = [ItemAttributeInlines]
     autocomplete_fields = ["catalog"]
+    filter_horizontal = ["favourites"]
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
