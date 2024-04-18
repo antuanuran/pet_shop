@@ -1,0 +1,19 @@
+POST http://localhost:8000/api/v1/orders/checkout/
+Authorization: Bearer {{token}}
+
+###
+
+GET http://localhost:8000/api/v1/orders/?include[]=spisok_tovarov_zakaza.item.*
+Authorization: Bearer {{token}}
+
+### Сменить статус Заказа
+
+PATCH http://localhost:8000/api/v1/orders/5/
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "status": "отменен"
+}
+
+###
