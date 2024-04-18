@@ -1,0 +1,15 @@
+POST http://localhost:8000/api/v1/orders/
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "item": 1,
+  "qty": 1
+}
+
+###
+
+GET http://localhost:8000/api/v1/orders/?include[]=spisok_tovarov_zakaza.item.*
+Authorization: Bearer {{token}}
+
+###

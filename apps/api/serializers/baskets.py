@@ -25,7 +25,9 @@ class BasketSerializer(BaseModelSerializer):
 
 
 class BasketRowSerializer(BaseModelSerializer):
-    item = DynamicRelationField(ItemSerializer)
+    item = DynamicRelationField(
+        ItemSerializer,
+    )
     qty = serializers.IntegerField()
     basket = DynamicRelationField(BasketSerializer, read_only=True)
 
