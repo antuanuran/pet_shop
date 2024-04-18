@@ -4,7 +4,7 @@ Authorization: Bearer {{token}}
 
 {
   "item": 1,
-  "qty": 3
+  "qty": 1
 }
 
 ###
