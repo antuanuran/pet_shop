@@ -1,23 +1,44 @@
 # from rest_framework import serializers
-# from rest_framework.exceptions import ValidationError
-
 from dynamic_rest.fields import DynamicRelationField
+from rest_framework import serializers
 
 from apps.api.serializers.abstract_dynamic import BaseModelSerializer
 from apps.api.serializers.items import ItemSerializer
-from apps.baskets.models import BasketRow
+from apps.baskets.models import Basket, BasketRow
+
+# from apps.products.models import Item
+from apps.users.models import User
+
+# from rest_framework.exceptions import ValidationError
+
+
+class UserSerializer(BaseModelSerializer):
+    class Meta:
+        model = User
+        fields = ["id", "email"]
+
+
+class BasketSerializer(BaseModelSerializer):
+    user = DynamicRelationField(UserSerializer, read_only=True)
+
+    class Meta:
+        model = Basket
+        fields = ["id", "user"]
 
 
 class BasketRowSerializer(BaseModelSerializer):
-    item = DynamicRelationField(ItemSerializer, read_only=True)
+    item = DynamicRelationField(ItemSerializer)
+    qty = serializers.IntegerField()
+    basket = DynamicRelationField(BasketSerializer, read_only=True)
 
     class Meta:
         model = BasketRow
         fields = ["basket", "qty", "item", "id"]
+        extra_kwargs = {"basket": {"read_only": True}}
 
     # def validate(self, attrs):
-    #     if not Item.objects.filter(id=attrs["item_id"], is_active=True).exists():
-    #         raise ValidationError("incorrect item_id", code="no-item_id")
+    #     if not Item.objects.filter(id=attrs["item"], is_active=True).exists():
+    #         raise ValidationError("Данного товара не существует!", code="no-item_id")
     #     else:
     #         return attrs
 

@@ -1,5 +1,11 @@
-POST http://localhost:8000/api/v1/items/1/change-favourite/
+POST http://localhost:8000/api/v1/baskets/
+Content-Type: application/json
 Authorization: Bearer {{token}}
+
+{
+  "item": 1,
+  "qty": 3
+}
 
 ###
 
@@ -8,5 +14,7 @@ Authorization: Bearer {{token}}
 
 ###
 
-GET http://localhost:8000/api/v1/baskets/?include[]=item.*
+GET http://localhost:8000/api/v1/baskets/?include[]=basket.user.*
 Authorization: Bearer {{token}}
+
+###
