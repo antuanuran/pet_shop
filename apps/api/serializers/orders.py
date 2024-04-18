@@ -1,4 +1,5 @@
 from dynamic_rest.fields import DynamicRelationField
+from rest_framework.exceptions import PermissionDenied
 
 from apps.api.serializers.abstract_dynamic import BaseModelSerializer
 from apps.api.serializers.items import ItemSerializer
@@ -11,7 +12,7 @@ class OrderRowSerializer(BaseModelSerializer):
     class Meta:
         model = OrderRow
         fields = [
-            "order",
+            "id",
             "item",
             "qty",
             "price",
@@ -25,9 +26,14 @@ class OrderSerializer(BaseModelSerializer):
     class Meta:
         model = Order
         fields = [
-            # "id",
+            "id",
             "status",
             "created_at",
             "updated_at",
             "spisok_tovarov_zakaza",
         ]
+
+    def validate_status(self, value):
+        if value != Order.Status.STATUS_CANCELED:
+            raise PermissionDenied("User может изменять статус заказа только на 'отменён'")
+        return value
