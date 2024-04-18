@@ -17,3 +17,4 @@
 - [x] 16.04 - Настраиваем Dynamic-rest. Просмотр Товаров (Items) через dynavic
 - [x] 16.04 - Добавление тэгов в Товары (Api + Admin)
 - [x] 16.04 - Добавление "Избранного" (favourites) (API - @action)
+- [x] 18.04 - Добавление API - basket. Validate - max limit items

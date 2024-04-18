@@ -27,6 +27,7 @@ class ItemSerializer(TaggitSerializer, BaseModelSerializer):
     class Meta:
         model = Item
         fields = [
+            "id",
             "catalog",
             "price",
             "price",

@@ -1,0 +1,20 @@
+POST http://localhost:8000/api/v1/baskets/
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "item": 1,
+  "qty": 1
+}
+
+###
+
+GET http://localhost:8000/api/v1/baskets/
+Authorization: Bearer {{token}}
+
+###
+
+GET http://localhost:8000/api/v1/baskets/?include[]=basket.user.*
+Authorization: Bearer {{token}}
+
+###
