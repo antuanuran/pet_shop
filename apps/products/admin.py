@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.db.models import Count
 
-from .models import Attribute, Catalog, Category, Item, ItemAttribute, Product
+from .models import Attribute, Catalog, Category, Item, ItemAttribute, Product, Review
 
 
 @admin.register(Category)
@@ -31,10 +31,15 @@ class ItemAttributeInlines(admin.TabularInline):
     extra = 0
 
 
+class ReviewInline(admin.TabularInline):
+    model = Review
+    extra = 0
+
+
 @admin.register(Item)
 class ItemAdmin(admin.ModelAdmin):
     list_display = ["catalog", "price", "count", "photo", "video_link", "is_active", "id", "attributes", "tag_list"]
-    inlines = [ItemAttributeInlines]
+    inlines = [ItemAttributeInlines, ReviewInline]
     autocomplete_fields = ["catalog"]
     filter_horizontal = ["favourites"]
 
