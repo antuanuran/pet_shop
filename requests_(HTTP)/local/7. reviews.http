@@ -1,0 +1,20 @@
+POST http://localhost:8000/api/v1/reviews/
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "item": 1,
+  "text": "Отзыв 2 на товар - хреновый у вас товар",
+  "rating": 7,
+  "images": ["8b4e4be1-cfea-4774-bf7c-f104197562a0"],
+  "videos": ["e7b21d3e-75c5-4f0b-a6f1-2a4d4553766b"]
+}
+
+
+
+###
+
+
+
+GET http://localhost:8000/api/v1/reviews/
+Authorization: Bearer {{token}}

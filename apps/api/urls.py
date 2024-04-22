@@ -2,7 +2,7 @@ from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
 from apps.api.views.baskets import BasketRowViewSet
-from apps.api.views.items import ItemViewSet
+from apps.api.views.items import ItemViewSet, ReviewViewSet
 from apps.api.views.load_data import import_file
 from apps.api.views.orders import OrderViewSet
 
@@ -10,6 +10,7 @@ router = DefaultRouter()
 router.register("items", ItemViewSet)
 router.register("baskets", BasketRowViewSet)
 router.register("orders", OrderViewSet)
+router.register("reviews", ReviewViewSet)
 
 
 urlpatterns = [

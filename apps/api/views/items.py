@@ -2,9 +2,9 @@ from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 
-from apps.api.serializers.items import ItemSerializer
+from apps.api.serializers.items import ItemSerializer, ReviewSerializer
 from apps.api.views.abstract_dynamic import BaseModelViewSet
-from apps.products.models import Item
+from apps.products.models import Item, Review
 
 
 class ItemViewSet(BaseModelViewSet):
@@ -29,3 +29,14 @@ class ItemViewSet(BaseModelViewSet):
 
         my_serializer = self.get_serializer(instance=item)
         return Response(my_serializer.data)
+
+
+class ReviewViewSet(BaseModelViewSet):
+    queryset = Review.objects.all()
+    serializer_class = ReviewSerializer
+    permission_classes = [IsAuthenticated]
+    http_method_names = ["get", "post", "delete", "options", "head"]
+
+    def perform_create(self, serializer):
+        user = self.request.user
+        serializer.save(author=user)

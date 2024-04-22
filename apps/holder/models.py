@@ -25,7 +25,7 @@ class ImageHolder(AbstractMediaHolder):
         verbose_name_plural = "изображения"
 
     def __str__(self) -> str:
-        return self.uuid
+        return self.name
 
 
 class VideoHolder(AbstractMediaHolder):
@@ -36,4 +36,4 @@ class VideoHolder(AbstractMediaHolder):
         verbose_name_plural = "видео-файлы"
 
     def __str__(self) -> str:
-        return self.uuid
+        return self.name
