@@ -1,0 +1,9 @@
+POST http://localhost:8000/api/v1/orders/1/
+Authorization: Bearer {{token}}
+
+###
+
+GET http://localhost:8000/api/v1/orders/1/payment-link/
+Authorization: Bearer {{token}}
+
+### Сменить статус Заказа
