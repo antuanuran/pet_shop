@@ -3,6 +3,7 @@ from django.db import models
 from django.utils import timezone
 
 from apps.products.models import Item
+from apps.products.tasks import celery_generate_result
 from apps.users.models import User
 
 
@@ -38,6 +39,12 @@ class Order(models.Model):
 
     def __str__(self):
         return self.user.email
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+        if self.status == self.Status.STATUS_COMPLETED:
+            celery_generate_result.delay(self.id, self.user.id)
 
 
 class OrderRow(models.Model):
