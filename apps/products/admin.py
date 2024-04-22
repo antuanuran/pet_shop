@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.db.models import Count
 
-from .models import Attribute, Catalog, Category, Item, ItemAttribute, Product, Review
+from .models import Attribute, Catalog, Category, Cheque, Item, ItemAttribute, Product, Review
 
 
 @admin.register(Category)
@@ -65,3 +65,8 @@ class ItemAdmin(admin.ModelAdmin):
             return True
         else:
             return False
+
+
+@admin.register(Cheque)
+class CertificateAdmin(admin.ModelAdmin):
+    list_display = ["user", "order", "pdf"]

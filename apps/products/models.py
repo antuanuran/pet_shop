@@ -115,3 +115,12 @@ class Review(models.Model):
     videos = models.ManyToManyField(VideoHolder, related_name="+", blank=True)
     rating = models.PositiveIntegerField(validators=[MaxValueValidator(10)])
     created_at = models.DateTimeField(default=timezone.now)
+
+
+class Cheque(models.Model):
+    from apps.orders.models import Order
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="cheques")
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name="cheques")
+    pdf = models.FileField(upload_to="files/certificates/", max_length=500)
+    created_at = models.DateTimeField(auto_now_add=True)
