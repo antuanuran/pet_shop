@@ -1,4 +1,5 @@
 from django.db import transaction
+from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.decorators import action, api_view, permission_classes
 from rest_framework.exceptions import APIException, ValidationError
@@ -84,3 +85,27 @@ def fake_leadpay_link(request, *args, **kwargs):
     data = request.data
     link_result_pay = {"url": f'http://{data["login"]}.ru/id-{data["id"]}/{data["hash"]}'}
     return Response(link_result_pay, status=status.HTTP_200_OK)
+
+
+@api_view(http_method_names=["post"])
+@permission_classes([AllowAny])
+def notification_link(request, *args, **kwargs):
+    data = request.data
+    obj = get_object_or_404(Order, id=data["order_id"])
+
+    actual_status = {
+        "success": obj.Status.STATUS_COMPLETED,
+        "fail": obj.Status.STATUS_NEW,
+    }.get(data["status"], obj.Status.STATUS_NEW)
+
+    if obj.sum_total_all_orders != int(data["summa"]):
+        actual_status = obj.Status.STATUS_NEW
+    obj.status = actual_status
+    obj.save(update_fields=["status"])
+
+    if obj.status == obj.Status.STATUS_COMPLETED:
+        return Response(f"Спасибо за покупку! Заказ №:'{obj.id}' оплачен успешно!", status=status.HTTP_200_OK)
+    else:
+        return Response(
+            f"К сожалению, оплата по Заказу №:'{obj.id}' не прошла. Попробуйте снова!", status=status.HTTP_200_OK
+        )

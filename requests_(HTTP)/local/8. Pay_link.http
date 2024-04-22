@@ -1,9 +1,16 @@
-POST http://localhost:8000/api/v1/orders/1/
-Authorization: Bearer {{token}}
-
-###
+### Запрос ссылки на оплату у Шлюза:
 
 GET http://localhost:8000/api/v1/orders/1/payment-link/
 Authorization: Bearer {{token}}
 
-### Сменить статус Заказа
+### Ответ от Leadpay:
+
+POST http://localhost:8000/api/v1/response-leadpay-link/
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "status": "success",
+  "summa": "85",
+  "order_id": "1"
+}
