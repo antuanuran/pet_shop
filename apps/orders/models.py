@@ -12,6 +12,7 @@ class Order(models.Model):
         STATUS_DELIVERY = "в доставке"
         STATUS_FINISHED = "завершен"
         STATUS_CANCELED = "отменен"
+        STATUS_COMPLETED = "оплачен"
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="orders")
     status = models.CharField(max_length=30, choices=Status.choices, default=Status.STATUS_NEW)
