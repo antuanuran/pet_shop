@@ -61,6 +61,10 @@ class OrderRow(models.Model):
     def save(self, *args, **kwargs):
         self.clean()
         super().save(*args, **kwargs)
+        from apps.bot.service import pay_items
+
+        if self.order.status == self.order.Status.STATUS_COMPLETED:
+            pay_items(self.order.user.email, self.item.catalog.name, self.price)
 
     def clean(self):
         if not self.item.is_active:
