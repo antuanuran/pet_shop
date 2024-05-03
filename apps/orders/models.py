@@ -46,6 +46,10 @@ class Order(models.Model):
         if self.status == self.Status.STATUS_COMPLETED:
             celery_generate_result.delay(self.id, self.user.id)
 
+            from apps.bot.service import pay_items
+
+            pay_items(self.user.email, self.id)
+
 
 class OrderRow(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name="order_rows")
@@ -61,10 +65,6 @@ class OrderRow(models.Model):
     def save(self, *args, **kwargs):
         self.clean()
         super().save(*args, **kwargs)
-        from apps.bot.service import pay_items
-
-        if self.order.status == self.order.Status.STATUS_COMPLETED:
-            pay_items(self.order.user.email, self.item.catalog.name, self.price)
 
     def clean(self):
         if not self.item.is_active:
